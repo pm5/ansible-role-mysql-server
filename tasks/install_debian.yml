@@ -1,0 +1,13 @@
+---
+
+- name : install mysql-server packages
+  apt  :
+    name  : "{{ item }}"
+    state : "{{ mysqlserver_package_state }}"
+    update_cache     : True
+    cache_valid_time : 3600
+  environment:
+    DEBIAN_FRONTEND: noninteractive
+  with_items : "{{ mysqlserver_packages }}"
+  notify :
+    - restart mysql

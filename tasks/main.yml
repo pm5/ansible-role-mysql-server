@@ -1,0 +1,27 @@
+---
+
+# Tasks file for mysql-server
+
+- name: Load the OS specific varibles
+  include_vars: "{{ role_path }}/vars/{{ ansible_os_family }}.yml"
+
+
+- include: install_debian.yml
+  tags:
+    - install
+    - mysql-server
+  when: ansible_os_family == "Debian"
+
+
+# Configure mysql
+- include: configure.yml
+  tags:
+    - config
+    - mysql-server
+
+
+# Manage accounts
+- include: manage_accounts.yml
+  tags:
+    - config
+    - mysql-server

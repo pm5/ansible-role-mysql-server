@@ -1,0 +1,14 @@
+---
+
+# Debian vars
+
+mysqlserver_packages :
+  - mysql-client
+  - mysql-common
+  - mysql-server
+  - mysql-server-core
+  - python-mysqldb
+
+mysqlserver_service_name : mysql
+
+mysqlserver_config_file_location : "/etc/mysql/my.cnf"

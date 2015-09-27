@@ -1,0 +1,13 @@
+# {{ ansible_managed }}
+
+{{ mysqlserver_mysqld_general_log_file | dirname }}/*.log {
+    create 600 mysql mysql
+    daily
+    rotate 7
+    missingok
+    compress
+    sharedscripts
+    postrotate
+        /usr/bin/mysql --defaults-extra-file=/root/.my_logrotate.cnf -e 'select @@global.long_query_time into @lqt_save; set global long_query_time=2000; set global slow_query_log = 0; select sleep(2); FLUSH LOGS; select sleep(2); set global long_query_time=@lqt_save; set global slow_query_log = 1;' >{{ mysqlserver_mysqld_general_log_file | dirname }}/mysqladmin.flush-logs 2>&1
+    endscript
+}
