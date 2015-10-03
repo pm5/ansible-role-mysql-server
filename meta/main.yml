@@ -21,7 +21,6 @@ galaxy_info:
         - jessie
 
   categories:
-    - networking
-    - system
+    - database:sql
 
 dependencies: []
