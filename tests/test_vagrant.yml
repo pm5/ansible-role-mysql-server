@@ -1,0 +1,12 @@
+---
+
+# Tests for jenkins role
+
+- hosts : all
+  remote_user : vagrant
+  roles :
+    - .
+  post_tasks :
+    - include : ./common_tests.yml
+  vars : {}
+
