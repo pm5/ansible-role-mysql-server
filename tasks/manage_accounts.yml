@@ -2,6 +2,18 @@
 
 # Manage DB users
 
+- name : check if root password need to be changed
+  register : mysqlserver_check_old_password
+  mysql_variables :
+    login_host     : "127.0.0.1"
+    login_user     : root
+    login_password : "{{ mysqlserver_root_db_old_password }}"
+    variable       : max_connections
+  changed_when  : False
+  ignore_errors : True
+  when : mysqlserver_root_db_password != mysqlserver_root_db_old_password
+
+
 - name : update mysql root password for all localhost root accounts
   mysql_user :
     name     : root
@@ -10,6 +22,9 @@
     login_user     : root
     login_password : "{{ mysqlserver_root_db_old_password }}"
     check_implicit_admin : yes
+  when :
+    - mysqlserver_root_db_password != mysqlserver_root_db_old_password
+    - mysqlserver_check_old_password.failed is not defined
   with_items:
     - 127.0.0.1
     - ::1
@@ -24,6 +39,9 @@
     login_user     : root
     login_password : "{{ mysqlserver_root_db_password }}"
     check_implicit_admin : yes
+  when :
+    - mysqlserver_root_db_password != mysqlserver_root_db_old_password
+    - mysqlserver_check_old_password.failed is not defined
 
 
 - name : manage mysql global accounts
