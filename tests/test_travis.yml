@@ -1,12 +1,33 @@
 ---
 
-# Tests for jenkins role
+# Tests for mysql-server role
 
 - hosts : localhost
   remote_user : root
   roles :
     - ansible-role-mysql-server
+  vars :
+    mysqlserver_root_db_password     : ""
+    mysqlserver_root_db_old_password : "foo"
+  when : mysqlserver_test_travis_first is defined
+
+# Change root password
+- hosts : all
+  remote_user : root
+  roles :
+    - .
+  vars :
+    mysqlserver_root_db_password     : "foo"
+    mysqlserver_root_db_old_password : "bar"
+
+# Check root password idempotence
+- hosts : all
+  remote_user : root
+  roles :
+    - .
   post_tasks :
     - include : ./common_tests.yml
-  vars : {}
+  vars :
+    mysqlserver_root_db_password     : "foo"
+    mysqlserver_root_db_old_password : "bar"
 
