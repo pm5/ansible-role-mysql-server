@@ -14,7 +14,7 @@
 - hosts : all
   remote_user : root
   roles :
-    - .
+    - ansible-role-mysql-server
   post_tasks :
     - include : ./common_tests.yml
   vars :
