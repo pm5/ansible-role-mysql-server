@@ -7,8 +7,8 @@
   roles :
     - ansible-role-mysql-server
   vars :
-    mysqlserver_root_db_password     : ""
-    mysqlserver_root_db_old_password : "foo"
+    mysqlserver_root_db_password     : "foo"
+    mysqlserver_root_db_old_password : ""
 
 # Check root password change
 - hosts : all
@@ -18,6 +18,6 @@
   post_tasks :
     - include : ./common_tests.yml
   vars :
-    mysqlserver_root_db_password     : "foo"
-    mysqlserver_root_db_old_password : "bar"
+    mysqlserver_root_db_password     : "bar"
+    mysqlserver_root_db_old_password : "foo"
 
