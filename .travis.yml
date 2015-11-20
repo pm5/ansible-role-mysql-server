@@ -18,17 +18,17 @@ install:
 
 script:
   # Check the role/playbook's syntax.
-  - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
+  - ansible-playbook -i tests/inventory tests/test_travis.yml --syntax-check
 
   # Run the role/playbook with ansible-playbook.
-  - "ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo"
+  - "ansible-playbook -i tests/inventory tests/test_travis.yml --connection=local --sudo"
 
   # Run the role/playbook again, checking to make sure it's idempotent.
   # Set change=1 or 2 or 3 due to non-interactive setup, travis also view change
   # on root password for server hostname (...) and to a bug in ansible
   # service module always return changed
   - >
-    ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo
+    ansible-playbook -i tests/inventory tests/test_travis.yml --connection=local --sudo
     | grep -q 'changed=[0123].*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
