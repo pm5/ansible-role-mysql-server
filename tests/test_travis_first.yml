@@ -9,18 +9,8 @@
   vars :
     mysqlserver_root_db_password     : ""
     mysqlserver_root_db_old_password : "foo"
-  when : mysqlserver_test_travis_first is defined
 
-# Change root password
-- hosts : all
-  remote_user : root
-  roles :
-    - .
-  vars :
-    mysqlserver_root_db_password     : "foo"
-    mysqlserver_root_db_old_password : "bar"
-
-# Check root password idempotence
+# Check root password change
 - hosts : all
   remote_user : root
   roles :
