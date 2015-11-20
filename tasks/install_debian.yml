@@ -1,6 +1,7 @@
 ---
 
 - name : install mysql-server packages
+  become : True
   apt  :
     name  : "{{ item }}"
     state : "{{ mysqlserver_package_state }}"
@@ -11,3 +12,4 @@
   with_items : "{{ mysqlserver_packages }}"
   notify :
     - restart mysql
+
