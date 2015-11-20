@@ -1,18 +1,15 @@
-mysql-server
-============
+# mysql-server
 
 [![Build Status](https://travis-ci.org/infOpen/ansible-role-mysql-server.svg?branch=master)](https://travis-ci.org/infOpen/ansible-role-mysql-server)
 
 Install mysql-server package.
 
-Requirements
-------------
+## Requirements
 
 This role requires Ansible 1.4 or higher, and platform requirements are listed
 in the metadata file.
 
-Role Variables
---------------
+## Role Variables
 
 Follow the possible variables with their default values
 
@@ -111,7 +108,7 @@ Follow the possible variables with their default values
     mysqlserver_isamchk_key_buffer : 16M
 
 
-Specific OS family vars :
+### Specific OS family vars :
 
     # Debian vars
     mysqlserver_packages :
@@ -126,7 +123,7 @@ Specific OS family vars :
     mysqlserver_config_file_location : "/etc/mysql/my.cnf"
 
 
-Syntax for user creation :
+### Syntax for user creation :
 
     mysqlserver_global_accounts :
 
@@ -143,26 +140,31 @@ Syntax for user creation :
         privileges :
           - "*.*:USAGE"
 
+### Notes about root password change
 
-Dependencies
-------------
+- The *mysqlserver_root_db_old_password* should contains working
+  mysql root password before change
+- The *mysqlserver_root_db_password* should contains the new mysql
+  root password
+- Once the change is done, a task check if *mysqlserver_root_db_old_password*
+  work. If it don't work, mysql root password change tasks are skipped to
+  avoid errors and keep tasks idempotent
+
+## Dependencies
 
 None
 
-Example Playbook
-----------------
+## Example Playbook
 
     - hosts: servers
       roles:
          - { role: achaussier.mysql-server }
 
-License
--------
+## License
 
 MIT
 
-Author Information
-------------------
+## Author Information
 
 Alexandre Chaussier (for Infopen company)
 - http://www.infopen.pro
