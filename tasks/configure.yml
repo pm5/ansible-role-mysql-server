@@ -3,14 +3,14 @@
 # Configure mysql-server
 
 - name: stat datadir exists
-  become : True
+  become : yes
   stat:
     path : "{{ mysqlserver_mysqld_datadir }}"
   register: mysqlserver_datadir_stat
 
 
 - name : create binary logs directory
-  become : True
+  become : yes
   file :
     path  : "{{ mysqlserver_mysqld_log_bin | dirname }}"
     group : "{{ mysqlserver_group }}"
@@ -20,7 +20,7 @@
 
 
 - name : stop mysql if datadir move is needed
-  become : True
+  become : yes
   service :
     name  : "{{ mysqlserver_service_name }}"
     state : stopped
@@ -28,7 +28,7 @@
 
 
 - name : get current datadir configuration
-  become : True
+  become : yes
   command       : "grep -E '[^#]?datadir' {{ mysqlserver_config_file_location }}"
   ignore_errors : yes
   register      : mysqlserver_current_datadir
@@ -36,14 +36,14 @@
 
 
 - name : move mysql data to data disk
-  become : True
+  become : yes
   become_user : "{{ mysqlserver_owner }}"
   command : "mv {{ mysqlserver_current_datadir.stdout.split('=')[1] | trim }} {{ mysqlserver_mysqld_datadir }}"
   when : not mysqlserver_datadir_stat.stat.exists
 
 
 - name : generate custom role config file
-  become   : True
+  become   : yes
   template :
     src   : "{{ item }}"
     dest  : "{{ mysqlserver_config_file_location }}"
@@ -59,7 +59,7 @@
     - restart mysql
 
 - name : generate logrotate configuration
-  become  : True
+  become  : yes
   template :
     src   : "{{ item }}"
     dest  : /etc/logrotate.d/mysql-server
@@ -72,7 +72,7 @@
 
 
 - name : enable mysql service on boot
-  become  : True
+  become  : yes
   service :
     name    : "{{ mysqlserver_service_name }}"
     enabled : "{{ mysqlserver_service_enabled }}"

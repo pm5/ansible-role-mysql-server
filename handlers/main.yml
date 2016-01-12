@@ -3,7 +3,7 @@
 # Handlers file for mysql-server
 
 - name: restart mysql
-  become : True
+  become : yes
   service:
     name  : "{{ mysqlserver_service_name }}"
     state : restarted

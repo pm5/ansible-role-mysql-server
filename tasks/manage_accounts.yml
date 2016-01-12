@@ -9,8 +9,8 @@
     login_user     : root
     login_password : "{{ mysqlserver_root_db_old_password }}"
     variable       : max_connections
-  changed_when  : False
-  ignore_errors : True
+  changed_when  : no
+  ignore_errors : yes
   when : mysqlserver_root_db_password != mysqlserver_root_db_old_password
 
 

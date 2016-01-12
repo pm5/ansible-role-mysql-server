@@ -9,9 +9,9 @@ mysqlserver_package_state : present
 # Service variables
 #------------------
 mysqlserver_service_state   : started
-mysqlserver_service_enabled : True
+mysqlserver_service_enabled : yes
 
-mysqlserver_managed_by_phpmyadmin : False
+mysqlserver_managed_by_phpmyadmin : no
 
 mysqlserver_owner : mysql
 mysqlserver_group : mysql
@@ -50,7 +50,7 @@ mysqlserver_mysqld_datadir         : /var/lib/mysql
 mysqlserver_mysqld_tmpdir          : /tmp
 mysqlserver_mysqld_lc_messages_dir : /usr/share/mysql
 
-mysqlserver_mysqld_skip_external_locking : True
+mysqlserver_mysqld_skip_external_locking : yes
 
 mysqlserver_mysqld_bind_address : 127.0.0.1
 
@@ -73,7 +73,7 @@ mysqlserver_mysqld_log_error           : /var/log/mysql/error.log
 mysqlserver_mysqld_slow_query_log_file : /var/log/mysql/mysql-slow.log
 mysqlserver_mysqld_slow_query_log      : 1
 mysqlserver_mysqld_long_query_time     : 2
-mysqlserver_mysqld_log_queries_not_using_indexes : True
+mysqlserver_mysqld_log_queries_not_using_indexes : yes
 
 mysqlserver_mysqld_server_id           : 1
 mysqlserver_mysqld_log_bin             : /var/log/mysql/mysql-bin.log
@@ -84,12 +84,12 @@ mysqlserver_mysqld_binlog_ignore_db    : include_database_name
 mysqlserver_mysqld_binlog_format       : mixed
 
 # mysqldump
-mysqlserver_mysqldump_quick              : True
-mysqlserver_mysqldump_quote_names        : True
+mysqlserver_mysqldump_quick              : yes
+mysqlserver_mysqldump_quote_names        : yes
 mysqlserver_mysqldump_max_allowed_packet : 16M
 
 # mysql
-mysqlserver_mysql_no_auto_rehash : False
+mysqlserver_mysql_no_auto_rehash : no
 
 # isamchk
 mysqlserver_isamchk_key_buffer : 16M

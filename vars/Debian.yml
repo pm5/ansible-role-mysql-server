@@ -7,7 +7,7 @@ mysqlserver_packages :
   - mysql-common
   - mysql-server
   - mysql-server-core
-  - python-mysqldb
+  - php5-mysql
 
 mysqlserver_service_name : mysql
 
